@@ -1,5 +1,8 @@
 import React from 'react';
-
-const element = <h1>Hello, world</h1>;
-
-export default element;
+class Playground extends React.Component {
+  render() {
+    let puzzle = this.props.puzzle;
+    return puzzle.shapes;
+  }
+}
+export default Playground;

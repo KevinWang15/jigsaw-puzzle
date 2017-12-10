@@ -6,3 +6,14 @@
     height: 100%;
     background: #FAFAFA;
 }
+
+polygon {
+    cursor: pointer;
+    transform: scale(1);
+    transition: all 0.2s;
+    opacity: 1;
+}
+
+polygon:hover {
+    opacity: 0.5;
+}
