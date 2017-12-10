@@ -25,3 +25,13 @@ polygon:hover {
 .non-interactive{
     pointer-events: none;
 }
+
+.game-over .puzzle-piece {
+    transition: all 0.5s;
+}
+
+.show-answer{
+    position: absolute;
+    left: 10px;
+    bottom: 10px;
+}

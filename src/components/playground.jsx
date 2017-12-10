@@ -9,9 +9,11 @@ class Playground extends React.Component {
       draggingPiece: null,
       dragOffset: { x: 0, y: 0 },
       hintShapes: [],
+      gameOver: false,
     };
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
+    this.showAnswer = this.showAnswer.bind(this);
   }
 
   componentWillMount() {
@@ -35,6 +37,7 @@ class Playground extends React.Component {
   }
 
   onMouseMove(e) {
+    if (this.state.gameOver) return;
     if (this.state.draggingPiece !== null) {
       console.log(e.pageX, e.pageY, this.state.draggingPiece);
       let newPiecePositions = [...this.state.piecePositions];
@@ -53,11 +56,25 @@ class Playground extends React.Component {
     });
   }
 
+  showAnswer() {
+    this.setState(
+      {
+        gameOver: true,
+        piecePositions: this.props.puzzle.solution,
+      },
+    );
+  }
+
   render() {
     let puzzle = this.props.puzzle;
-    return <div className="playground" onDoubleClick={() => {
-      console.log(this.state)
-    }} onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}>
+    return <div className={"playground " + (this.state.gameOver ? 'game-over' : '')}
+                onDoubleClick={() => {
+                  console.log(this.state)
+                }} onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}>
+
+      {!this.state.gameOver &&
+      <button onClick={this.showAnswer} className="show-answer">揭晓答案</button>}
+
       {this.state.hintShapes.map((_, index) => {
         return <div className="puzzle-piece non-interactive"
                     style={{
