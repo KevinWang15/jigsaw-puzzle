@@ -17,15 +17,16 @@ class Playground extends React.Component {
   }
 
   componentWillMount() {
-    let shapes = ([...this.props.puzzle.shapes]).sort(_ => Math.random() - 0.5);
     if (!this.state.piecePositions) {
       let xPointer = 0;
+      let order = this.props.puzzle.shapes.map((_, index) => index).sort(_ => Math.random() - 0.5);
+      let piecePositions = [];
+      for (let i = 0; i < order.length; i++) {
+        piecePositions[order[i]] = xPointer;
+        xPointer += +this.props.puzzle.shapes[order[i]].props.width;
+      }
       this.setState({
-        piecePositions: shapes.map((_, index) => {
-          let pos = ({ x: xPointer, y: 0 });
-          xPointer += +_.props.width;
-          return pos;
-        }),
+        piecePositions: piecePositions.map(_ => ({ x: _, y: 0 })),
       });
 
       let hintShapes = this.props.puzzle.shapes.map(_ => {
