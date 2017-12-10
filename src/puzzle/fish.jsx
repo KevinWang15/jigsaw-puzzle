@@ -1,5 +1,6 @@
 import React from 'react';
 import Polygon from "../components/polygon.jsx";
+let solution = [{"x":48,"y":241},{"x":85,"y":170},{"x":160,"y":246},{"x":160,"y":186},{"x":220,"y":186},{"x":220,"y":186},{"x":340,"y":186}];
 
 let shapes = [
   <Polygon points={[[0, 50], [50, 0], [100, 50]]} color="rgb(228,0,123)" height="50"/>,
@@ -11,4 +12,4 @@ let shapes = [
   <Polygon points={[[0, 0], [0, 120], [60, 60]]} color="yellow" height="120" width="60"/>,
 ];
 
-export default { shapes };
+export default { shapes, solution };

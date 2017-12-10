@@ -1,4 +1,5 @@
 import React from 'react';
+import Polygon from "./polygon.jsx";
 class Playground extends React.Component {
 
   constructor(props, context) {
@@ -7,13 +8,14 @@ class Playground extends React.Component {
       piecePositions: null,
       draggingPiece: null,
       dragOffset: { x: 0, y: 0 },
+      hintShapes: [],
     };
     this.onMouseMove = this.onMouseMove.bind(this);
     this.onMouseUp = this.onMouseUp.bind(this);
   }
 
   componentWillMount() {
-    let shapes = this.props.puzzle.shapes.sort(_ => Math.random() - 0.5);
+    let shapes = ([...this.props.puzzle.shapes]).sort(_ => Math.random() - 0.5);
     if (!this.state.piecePositions) {
       let xPointer = 0;
       this.setState({
@@ -23,6 +25,12 @@ class Playground extends React.Component {
           return pos;
         }),
       });
+
+      let hintShapes = this.props.puzzle.shapes.map(_ => {
+        return <Polygon points={_.props.points} color="gray" width={_.props.width}
+                        height={_.props.height}/>
+      });
+      this.setState({ hintShapes });
     }
   }
 
@@ -47,7 +55,17 @@ class Playground extends React.Component {
 
   render() {
     let puzzle = this.props.puzzle;
-    return <div className="playground" onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}>
+    return <div className="playground" onDoubleClick={() => {
+      console.log(this.state)
+    }} onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}>
+      {this.state.hintShapes.map((_, index) => {
+        return <div className="puzzle-piece non-interactive"
+                    style={{
+                      left: this.props.puzzle.solution[index].x,
+                      top: this.props.puzzle.solution[index].y,
+                    }}
+                    key={index}>{_}</div>
+      })}
       {puzzle.shapes.map((_, index) => {
         return <div className="puzzle-piece"
                     style={{
