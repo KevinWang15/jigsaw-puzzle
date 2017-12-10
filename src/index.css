@@ -1,4 +1,4 @@
-.root{
+.playground{
     position: fixed;
     left: 0;
     top: 0;
@@ -16,4 +16,8 @@ polygon {
 
 polygon:hover {
     opacity: 0.5;
+}
+
+.puzzle-piece{
+    position: absolute;
 }
