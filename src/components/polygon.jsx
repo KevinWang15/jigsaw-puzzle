@@ -3,8 +3,6 @@ import React from 'react';
 class Polygon extends React.Component {
   static get defaultProps() {
     return {
-      width: 100,
-      height: 100,
       color: "lime",
       points: [[0, 0], [100, 0], [0, 100]],
     }
