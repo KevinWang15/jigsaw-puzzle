@@ -33,7 +33,7 @@ polygon:hover {
     pointer-events: none;
 }
 
-.game-over .puzzle-piece {
+.game-over .puzzle-piece, .game-over .polygon-component {
     transition: all 0.5s;
 }
 
@@ -45,4 +45,19 @@ polygon:hover {
 
 button {
     user-select: none;
+}
+
+.polygon-component {
+    position: absolute;
+}
+
+.rotate-icon {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    right: 50%;
+    top: 50%;
+    display: inline-block;
+    opacity: .3;
+    transform: translate(10px, -10px);
 }

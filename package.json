@@ -23,6 +23,7 @@
     "webpack-dev-server": "^2.9.4"
   },
   "devDependencies": {
-    "babel-plugin-transform-object-rest-spread": "^6.26.0"
+    "babel-plugin-transform-object-rest-spread": "^6.26.0",
+    "react-svg-loader": "^2.1.0"
   }
 }

@@ -116,7 +116,8 @@ class Playground extends React.Component {
                     key={index}>{_}</div>
       })}
       {puzzle.shapes.map((_, index) => {
-        return <Polygon className="puzzle-piece"
+        return <Polygon inactive={this.state.gameOver}
+                        className="puzzle-piece"
                         points={_.points}
                         height={_.height}
                         color={_.color}
