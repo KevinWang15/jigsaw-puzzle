@@ -3,6 +3,7 @@ import Polygon from "./polygon.jsx";
 
 const config = {
   boardPadding: 30,
+  boardOffsetY: -200,
   width: 1000,
   height: 800,
 };
@@ -35,21 +36,30 @@ class Playground extends React.Component {
         xPointer += +this.props.puzzle.shapes[order[i]].width;
       }
       this.setState({
-        piecePositions: piecePositions.map(_ => ({ x: _, y: 0, rotation: 0 })),
+        piecePositions: piecePositions.map(_ => ({
+          x: (config.width - xPointer) / 2 + _,
+          y: config.height - 300,
+          rotation: Math.floor(Math.random() * 8) * 45,
+        })),
       });
 
       //board
       let w = this.props.puzzle.dimensions[0] + config.boardPadding * 2;
       let h = this.props.puzzle.dimensions[1] + config.boardPadding * 2;
       this.setState({
-        board: { x: (config.width - w) / 2, y: (config.height - h) / 2, width: w, height: h },
+        board: {
+          x: (config.width - w) / 2,
+          y: (config.height - h) / 2 + config.boardOffsetY,
+          width: w,
+          height: h,
+        },
       });
 
       //hintShapes
       this.setState({
         hintShapesOffset: {
           x: (config.width - w) / 2 + config.boardPadding,
-          y: (config.height - h) / 2 + config.boardPadding,
+          y: (config.height - h) / 2 + config.boardPadding+config.boardOffsetY,
         },
       });
       let hintShapes = this.props.puzzle.shapes.map(_ => {
