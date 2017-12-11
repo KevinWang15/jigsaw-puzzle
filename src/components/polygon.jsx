@@ -13,12 +13,12 @@ class Polygon extends React.Component {
 
   constructor() {
     super();
-    this.state = { showRotation: false };
+    this.state = { showRotation: false, isMouseOut: true };
     this.mouseMoveEventListener = this.mouseMoveEventListener.bind(this);
   }
 
   mouseMoveEventListener(e) {
-    if (!this.polygonComponentRef || !this.state.showRotation) return;
+    if (!this.state.isMouseOut || !this.polygonComponentRef || !this.state.showRotation) return;
     let distanceAllowed = 0;
     let rect = this.polygonComponentRef.getBoundingClientRect();
     if (e.clientX + distanceAllowed < rect.x || e.clientY + distanceAllowed < rect.y || e.clientX - distanceAllowed > rect.x + rect.width || e.clientY - distanceAllowed > rect.y + rect.height) {
@@ -41,7 +41,11 @@ class Polygon extends React.Component {
       <svg height={this.props.height} width={this.props.width}
            className={this.props.className}
            onMouseDown={this.props.onMouseDown}
+           onMouseOut={() => {
+             this.setState({ isMouseOut: true });
+           }}
            onMouseOver={() => {
+             this.setState({ isMouseOut: false });
              if (!this.props.inactive && !this.state.showRotation)
                this.setState({ showRotation: true })
            }}

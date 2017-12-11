@@ -155,11 +155,15 @@ class Playground extends React.Component {
                         }}
                         key={index}
                         onMouseDown={(e) => {
+                          console.log(e.nativeEvent, {
+                            x: e.nativeEvent.clientX - this.state.piecePositions[index].x,
+                            y: e.nativeEvent.clientY - this.state.piecePositions[index].y,
+                          });
                           this.setState({
                             draggingPiece: index,
                             dragOffset: {
-                              x: e.nativeEvent.offsetX,
-                              y: e.nativeEvent.offsetY,
+                              x: e.nativeEvent.clientX - this.state.piecePositions[index].x - (window.innerWidth - config.width) / 2,
+                              y: e.nativeEvent.clientY - this.state.piecePositions[index].y - (window.innerHeight - config.height) / 2,
                             },
                           });
                         }}>{_}</Polygon>
