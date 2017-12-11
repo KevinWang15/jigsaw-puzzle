@@ -32,7 +32,7 @@ class Playground extends React.Component {
       let piecePositions = [];
       for (let i = 0; i < order.length; i++) {
         piecePositions[order[i]] = xPointer;
-        xPointer += +this.props.puzzle.shapes[order[i]].props.width;
+        xPointer += +this.props.puzzle.shapes[order[i]].width;
       }
       this.setState({
         piecePositions: piecePositions.map(_ => ({ x: _, y: 0 })),
@@ -53,8 +53,8 @@ class Playground extends React.Component {
         },
       });
       let hintShapes = this.props.puzzle.shapes.map(_ => {
-        return <Polygon points={_.props.points} color="gray" width={_.props.width}
-                        height={_.props.height}/>
+        return <Polygon points={_.points} color="gray" width={_.width}
+                        height={_.height}/>
       });
       this.setState({ hintShapes });
     }
@@ -116,21 +116,25 @@ class Playground extends React.Component {
                     key={index}>{_}</div>
       })}
       {puzzle.shapes.map((_, index) => {
-        return <div className="puzzle-piece"
-                    style={{
-                      left: this.state.piecePositions[index].x,
-                      top: this.state.piecePositions[index].y,
-                    }}
-                    key={index}
-                    onMouseDown={(e) => {
-                      this.setState({
-                        draggingPiece: index,
-                        dragOffset: {
-                          x: e.nativeEvent.offsetX,
-                          y: e.nativeEvent.offsetY,
-                        },
-                      });
-                    }}>{_}</div>
+        return <Polygon className="puzzle-piece"
+                        points={_.points}
+                        height={_.height}
+                        color={_.color}
+                        width={_.width}
+                        style={{
+                          left: this.state.piecePositions[index].x,
+                          top: this.state.piecePositions[index].y,
+                        }}
+                        key={index}
+                        onMouseDown={(e) => {
+                          this.setState({
+                            draggingPiece: index,
+                            dragOffset: {
+                              x: e.nativeEvent.offsetX,
+                              y: e.nativeEvent.offsetY,
+                            },
+                          });
+                        }}>{_}</Polygon>
       })}
     </div>
   }

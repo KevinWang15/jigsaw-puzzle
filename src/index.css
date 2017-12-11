@@ -17,6 +17,7 @@ polygon {
     transform: scale(1);
     transition: all 0.2s;
     opacity: 1;
+    pointer-events: all;
 }
 
 polygon:hover {
@@ -25,9 +26,10 @@ polygon:hover {
 
 .puzzle-piece{
     position: absolute;
+    pointer-events: none;
 }
 
-.non-interactive{
+.non-interactive *{
     pointer-events: none;
 }
 
