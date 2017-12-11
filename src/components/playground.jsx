@@ -25,49 +25,55 @@ class Playground extends React.Component {
     this.showAnswer = this.showAnswer.bind(this);
   }
 
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.onMouseMove);
+    window.removeEventListener('mouseup', this.onMouseUp);
+  }
+
+
   componentWillMount() {
-    if (!this.state.piecePositions) {
-      //piecePositions
-      let xPointer = 0;
-      let order = this.props.puzzle.shapes.map((_, index) => index).sort(_ => Math.random() - 0.5);
-      let piecePositions = [];
-      for (let i = 0; i < order.length; i++) {
-        piecePositions[order[i]] = xPointer;
-        xPointer += +this.props.puzzle.shapes[order[i]].width;
-      }
-      this.setState({
-        piecePositions: piecePositions.map(_ => ({
-          x: (config.width - xPointer) / 2 + _,
-          y: config.height - 300,
-          rotation: Math.floor(Math.random() * 8) * 45,
-        })),
-      });
-
-      //board
-      let w = this.props.puzzle.dimensions[0] + config.boardPadding * 2;
-      let h = this.props.puzzle.dimensions[1] + config.boardPadding * 2;
-      this.setState({
-        board: {
-          x: (config.width - w) / 2,
-          y: (config.height - h) / 2 + config.boardOffsetY,
-          width: w,
-          height: h,
-        },
-      });
-
-      //hintShapes
-      this.setState({
-        hintShapesOffset: {
-          x: (config.width - w) / 2 + config.boardPadding,
-          y: (config.height - h) / 2 + config.boardPadding+config.boardOffsetY,
-        },
-      });
-      let hintShapes = this.props.puzzle.shapes.map(_ => {
-        return <Polygon points={_.points} color="gray" width={_.width}
-                        height={_.height}/>
-      });
-      this.setState({ hintShapes });
+    window.addEventListener('mousemove', this.onMouseMove);
+    window.addEventListener('mouseup', this.onMouseUp);
+    //piecePositions
+    let xPointer = 0;
+    let order = this.props.puzzle.shapes.map((_, index) => index).sort(_ => Math.random() - 0.5);
+    let piecePositions = [];
+    for (let i = 0; i < order.length; i++) {
+      piecePositions[order[i]] = xPointer;
+      xPointer += +this.props.puzzle.shapes[order[i]].width;
     }
+    this.setState({
+      piecePositions: piecePositions.map(_ => ({
+        x: (config.width - xPointer) / 2 + _,
+        y: config.height - 300,
+        rotation: Math.floor(Math.random() * 8) * 45,
+      })),
+    });
+
+    //board
+    let w = this.props.puzzle.dimensions[0] + config.boardPadding * 2;
+    let h = this.props.puzzle.dimensions[1] + config.boardPadding * 2;
+    this.setState({
+      board: {
+        x: (config.width - w) / 2,
+        y: (config.height - h) / 2 + config.boardOffsetY,
+        width: w,
+        height: h,
+      },
+    });
+
+    //hintShapes
+    this.setState({
+      hintShapesOffset: {
+        x: (config.width - w) / 2 + config.boardPadding,
+        y: (config.height - h) / 2 + config.boardPadding + config.boardOffsetY,
+      },
+    });
+    let hintShapes = this.props.puzzle.shapes.map(_ => {
+      return <Polygon points={_.points} color="gray" width={_.width}
+                      height={_.height}/>
+    });
+    this.setState({ hintShapes });
   }
 
   onMouseMove(e) {
@@ -105,9 +111,7 @@ class Playground extends React.Component {
   render() {
     let puzzle = this.props.puzzle;
     return <div className={"playground " + (this.state.gameOver ? 'game-over' : '')}
-                style={{ width: config.width, height: config.height }}
-                onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}>
-
+                style={{ width: config.width, height: config.height }}>
       {!this.state.gameOver &&
       <button onClick={this.showAnswer} className="show-answer">揭晓答案</button>}
 
