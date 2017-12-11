@@ -14,7 +14,6 @@
 
 polygon {
     cursor: -webkit-grab;
-    transform: scale(1);
     transition: all 0.2s;
     opacity: 1;
     pointer-events: all;
@@ -27,6 +26,8 @@ polygon:hover {
 .puzzle-piece{
     position: absolute;
     pointer-events: none;
+    transform: rotate(0deg);
+    transition: transform 0.1s;
 }
 
 .non-interactive *{

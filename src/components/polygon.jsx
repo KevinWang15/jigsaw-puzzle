@@ -38,11 +38,15 @@ class Polygon extends React.Component {
              if (!this.props.inactive && !this.state.showRotation)
                this.setState({ showRotation: true })
            }}
+           style={{transform:`rotate(${this.props.rotation}deg)`}}
       >
         <polygon points={this.props.points.map(_ => `${_[0]},${_[1]}`).join(' ')}
                  style={{ "fill": this.props.color }}/>
       </svg>
-      {this.state.showRotation && <RotateIcon className="rotate-icon"/>}
+      {this.state.showRotation && <RotateIcon
+        onClick={() => {
+          this.props.onRotate()
+        }} className="rotate-icon"/>}
     </div>;
   }
 }

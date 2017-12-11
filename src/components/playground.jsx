@@ -35,7 +35,7 @@ class Playground extends React.Component {
         xPointer += +this.props.puzzle.shapes[order[i]].width;
       }
       this.setState({
-        piecePositions: piecePositions.map(_ => ({ x: _, y: 0 })),
+        piecePositions: piecePositions.map(_ => ({ x: _, y: 0, rotation: 0 })),
       });
 
       //board
@@ -86,6 +86,7 @@ class Playground extends React.Component {
         piecePositions: this.props.puzzle.solution.map(_ => ({
           x: _.x + this.state.hintShapesOffset.x,
           y: _.y + this.state.hintShapesOffset.y,
+          rotation: _.rotation,
         })),
       },
     );
@@ -122,6 +123,18 @@ class Playground extends React.Component {
                         height={_.height}
                         color={_.color}
                         width={_.width}
+                        rotation={this.state.piecePositions[index].rotation}
+                        onRotate={
+                          () => {
+                            let newPiecePositions = [...this.state.piecePositions];
+                            newPiecePositions[index] = {
+                              ...newPiecePositions[index],
+                              rotation: (newPiecePositions[index].rotation + 45),
+                            };
+                            console.log(newPiecePositions[index]);
+                            this.setState({ piecePositions: newPiecePositions });
+                          }
+                        }
                         style={{
                           left: this.state.piecePositions[index].x,
                           top: this.state.piecePositions[index].y,
