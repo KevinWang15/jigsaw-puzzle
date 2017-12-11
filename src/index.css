@@ -13,7 +13,7 @@
 }
 
 polygon {
-    cursor: pointer;
+    cursor: -webkit-grab;
     transform: scale(1);
     transition: all 0.2s;
     opacity: 1;
@@ -48,10 +48,12 @@ button {
 }
 
 .polygon-component {
+    pointer-events: none;
     position: absolute;
 }
 
 .rotate-icon {
+    pointer-events: all;
     position: absolute;
     width: 20px;
     height: 20px;
@@ -60,4 +62,10 @@ button {
     display: inline-block;
     opacity: .3;
     transform: translate(10px, -10px);
+    cursor: pointer;
+}
+
+.rotate-icon:hover {
+    opacity: .5;
+    cursor: pointer;
 }
