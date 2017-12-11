@@ -14,17 +14,24 @@ class Polygon extends React.Component {
   constructor() {
     super();
     this.state = { showRotation: false };
+    this.mouseMoveEventListener = this.mouseMoveEventListener.bind(this);
   }
 
+  mouseMoveEventListener(e) {
+    if (!this.polygonComponentRef || !this.state.showRotation) return;
+    let distanceAllowed = 0;
+    let rect = this.polygonComponentRef.getBoundingClientRect();
+    if (e.clientX + distanceAllowed < rect.x || e.clientY + distanceAllowed < rect.y || e.clientX - distanceAllowed > rect.x + rect.width || e.clientY - distanceAllowed > rect.y + rect.height) {
+      this.setState({ showRotation: false });
+    }
+  };
+
   componentWillMount() {
-    window.addEventListener('mousemove', (e) => {
-      if (!this.polygonComponentRef || !this.state.showRotation) return;
-      let distanceAllowed = 0;
-      let rect = this.polygonComponentRef.getBoundingClientRect();
-      if (e.clientX + distanceAllowed < rect.x || e.clientY + distanceAllowed < rect.y || e.clientX - distanceAllowed > rect.x + rect.width || e.clientY - distanceAllowed > rect.y + rect.height) {
-        this.setState({ showRotation: false });
-      }
-    });
+    window.addEventListener('mousemove', this.mouseMoveEventListener);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('mousemove', this.mouseMoveEventListener);
   }
 
   render() {
