@@ -12,7 +12,7 @@ class Polygon extends React.Component {
     return <svg height={this.props.height} width={this.props.width} style={this.props.style} className={this.props.className}
                 onMouseDown={this.props.onMouseDown}>
       <polygon points={this.props.points.map(_=>`${_[0]},${_[1]}`).join(' ')}
-               style={{ "fill": this.props.color, "stroke": "gray", "strokeWidth": 1 }}/>
+               style={{ "fill": this.props.color }}/>
     </svg>;
   }
 }
