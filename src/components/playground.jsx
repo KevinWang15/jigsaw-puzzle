@@ -83,10 +83,10 @@ class Playground extends React.Component {
     this.setState(
       {
         gameOver: true,
-        piecePositions: this.props.puzzle.solution.map(_ => ({
+        piecePositions: this.props.puzzle.solution.map((_, index) => ({
           x: _.x + this.state.hintShapesOffset.x,
           y: _.y + this.state.hintShapesOffset.y,
-          rotation: _.rotation,
+          rotation: Math.floor(this.state.piecePositions[index].rotation / 360) * 360,
         })),
       },
     );
