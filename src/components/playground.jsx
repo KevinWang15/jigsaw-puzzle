@@ -63,12 +63,11 @@ class Playground extends React.Component {
   onMouseMove(e) {
     if (this.state.gameOver) return;
     if (this.state.draggingPiece !== null) {
-      console.log(e.pageX, e.pageY, this.state.draggingPiece);
       let newPiecePositions = [...this.state.piecePositions];
       newPiecePositions[this.state.draggingPiece] = {
         ...newPiecePositions[this.state.draggingPiece],
-        x: e.pageX - this.state.dragOffset.x,
-        y: e.pageY - this.state.dragOffset.y,
+        x: e.pageX - (window.innerWidth - config.width) / 2 - this.state.dragOffset.x,
+        y: e.pageY - (window.innerHeight - config.height) / 2 - this.state.dragOffset.y,
       };
       this.setState({ piecePositions: newPiecePositions });
     }
@@ -96,9 +95,7 @@ class Playground extends React.Component {
     let puzzle = this.props.puzzle;
     return <div className={"playground " + (this.state.gameOver ? 'game-over' : '')}
                 style={{ width: config.width, height: config.height }}
-                onDoubleClick={() => {
-                  console.log(this.state)
-                }} onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}>
+                onMouseMove={this.onMouseMove} onMouseUp={this.onMouseUp}>
 
       {!this.state.gameOver &&
       <button onClick={this.showAnswer} className="show-answer">揭晓答案</button>}

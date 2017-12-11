@@ -40,3 +40,7 @@ polygon:hover {
     left: 10px;
     bottom: 10px;
 }
+
+button {
+    user-select: none;
+}
