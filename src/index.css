@@ -70,3 +70,7 @@ button {
     opacity: .5;
     cursor: pointer;
 }
+
+body, * {
+    -webkit-user-drag: none !important;
+}
